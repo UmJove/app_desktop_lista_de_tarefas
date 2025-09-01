@@ -1,13 +1,5 @@
 [
     {
-        "id": "ebe0786e-cf9e-4dd8-be7b-c8709beab499",
-        "usuario": "Luan",
-        "atividade": "Tarefa 2",
-        "data": "12/12/2025",
-        "hora": "11:11",
-        "concluida": false
-    },
-    {
         "id": "34df3816-35f7-4795-a9a3-bfb3c3b79b67",
         "usuario": "Luan",
         "atividade": "Tarefa 3",
