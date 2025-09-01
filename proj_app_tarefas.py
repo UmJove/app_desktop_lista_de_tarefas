@@ -56,8 +56,8 @@ def criar_tarefa():
     btn_salvar = ctk.CTkButton(frame_btn_nova_tarefa, text="Salvar", command=lambda: salvar(atividade=atividade_entry.get(), data=data_entry.get(), hora=hora_entry.get(), parent=nova_tarefa))
     btn_salvar.pack(side="left", padx=(0, 50))
 
-    btn_cancelar = ctk.CTkButton(frame_btn_nova_tarefa, text="Cancelar", fg_color="darkred", hover_color="#a83232", command=nova_tarefa.destroy)
-    btn_cancelar.pack(side="right", padx=(50, 0))
+    btn_voltar = ctk.CTkButton(frame_btn_nova_tarefa, text="Voltar", fg_color="darkgreen", hover_color="#247b2d", command=nova_tarefa.destroy)
+    btn_voltar.pack(side="right", padx=(50, 0))
 
 def excluir_tarefas():
     excluir_tarefas_win = ctk.CTkToplevel()
@@ -84,7 +84,6 @@ def excluir_tarefas():
     try:
         with open("tarefas.json", "r") as f:
             tarefas = json.load(f)
-
 
         tarefas = [t for t in tarefas if t["usuario"] == back.user]
     except (FileNotFoundError, json.JSONDecodeError):
@@ -119,6 +118,24 @@ def excluir_tarefas():
     btn_excluir.pack(pady=20)
 
 def main():
+    # Atualizar checkboxes com status de tarefas
+    def atualizar_status_concluida(tarefa_id,var):
+        try:
+            with open("tarefas.json", "r") as f:
+                tarefas = json.load(f)
+
+            # Encontrar a tarefa pelo ID em vez do índice
+            for tarefa in tarefas:
+                if tarefa["id"] == tarefa_id:
+                    tarefa["concluida"] = var.get()
+
+            with open("tarefas.json", "w") as f:
+                json.dump(tarefas, f, indent=4)
+
+        except Exception as e:
+            print(f"Erro ao atualizar: {e}")
+
+    # Atualizar lista de tarefas completa
     def lista_atualizada():
         for widget in frame_lista.winfo_children():
             widget.destroy()
@@ -149,16 +166,20 @@ def main():
         except (FileNotFoundError, json.JSONDecodeError):
             tarefas = []
         
-        def atualizar_status_concluida(index,var):
-            with open("tarefas.json", "r") as f:
-                tarefas = json.load(f)
-            tarefas[index-2]["concluida"] = var.get()
-            with open("tarefas.json", "w") as f:
-                json.dump(tarefas, f, indent=4)
 
         for i, tarefa in enumerate(tarefas, start=2):
             check_var = ctk.BooleanVar(value=tarefa.get("concluida", False)) 
-            checkbox = ctk.CTkCheckBox(frame_lista, text="", width=20, variable=check_var, command=lambda idx=i, v=check_var: atualizar_status_concluida(idx, v), checkbox_width=20, checkbox_height=20, corner_radius=10, fg_color="darkgreen", hover_color="green")
+            checkbox = ctk.CTkCheckBox(
+                frame_lista, 
+                text="", 
+                width=20, 
+                variable=check_var, 
+                command=lambda t_id=tarefa["id"], v=check_var: atualizar_status_concluida(t_id, v), 
+                checkbox_width=20, 
+                checkbox_height=20, 
+                corner_radius=10, 
+                fg_color="darkgreen", 
+                hover_color="green")
             checkbox.grid(row=i, column=0, padx=(15))
 
             label_atividade = ctk.CTkLabel(frame_lista, text=tarefa["atividade"])

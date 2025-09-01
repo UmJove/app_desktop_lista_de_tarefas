@@ -1,4 +1,5 @@
 import json
+import uuid
 from datetime import datetime
 from tkinter import messagebox
 import customtkinter as ctk
@@ -29,11 +30,12 @@ O que podemos fazer é olhar para frente, aprender com o que vivemos e decidir c
             tarefas = []
 
         tarefas.append({
+            "id": str(uuid.uuid4()),  # ID único
+            "usuario": user,
             "atividade": atividade,
             "data": data,
             "hora": hora,
             "concluida": False,
-            "usuario": user  # Corrigido de "user" para "usuario"
         })
 
         with open("tarefas.json", "w") as f:
