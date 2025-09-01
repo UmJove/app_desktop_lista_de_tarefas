@@ -253,13 +253,13 @@ titulo_main = ctk.CTkLabel(main, text="My Tasks", font=("Helvetica", 16))
 titulo_main.pack(pady=(20, 10))
 
 #Frame dos botões
-frame_botoes = ctk.CTkFrame(main, width=500, fg_color="transparent")
-frame_botoes.pack(pady=10)
+frame_botoes1 = ctk.CTkFrame(main, width=500, fg_color="transparent")
+frame_botoes1.pack(pady=10)
 
-btn_criar_tarefa = ctk.CTkButton(frame_botoes, text="Criar nova tarefa", command=criar_tarefa)
+btn_criar_tarefa = ctk.CTkButton(frame_botoes1, text="Criar nova tarefa", command=criar_tarefa)
 btn_criar_tarefa.pack(side="left", padx=(0, 80))
 
-btn_editar_lista = ctk.CTkButton(frame_botoes, text="Excluir tarefas", command=excluir_tarefas)
+btn_editar_lista = ctk.CTkButton(frame_botoes1, text="Excluir tarefas", command=excluir_tarefas)
 btn_editar_lista.pack(side="right", padx=(80, 0))
 
 # Frame de lista de atividades
@@ -269,8 +269,14 @@ frame_lista.pack(pady=5)
 frame_lista.columnconfigure([0,2,3], weight=0)
 frame_lista.columnconfigure(1, weight=1)
 
-btn_atualizar = ctk.CTkButton(main, text="Atualizar lista",  command=lambda: atualizar_lista(user, frame_lista))
-btn_atualizar.pack(pady=(20))
+frame_botoes2 = ctk.CTkFrame(main, width=500, fg_color="transparent")
+frame_botoes2.pack(pady=10)
+
+btn_atualizar = ctk.CTkButton(frame_botoes2, text="Atualizar lista", fg_color="darkgreen", hover_color="#247b2d",  command=lambda: atualizar_lista(user, frame_lista))
+btn_atualizar.pack(side="left", padx=(30, 40))
+
+btn_atualizar = ctk.CTkButton(frame_botoes2, text="Sair",  fg_color="darkred", hover_color="#7b2424",  command=main.destroy)
+btn_atualizar.pack(side="right", padx=(40, 30))
 
 # Iniciar janela de login
 login()
