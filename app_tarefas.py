@@ -53,10 +53,10 @@ def criar_tarefa():
     frame_btn_nova_tarefa.grid(row=3, column=0, columnspan=4, pady=15)
 
     # btn_salvar  = 
-    btn_salvar = ctk.CTkButton(frame_btn_nova_tarefa, text="Salvar", command=lambda: salvar(user, frame_lista, atividade=atividade_entry.get(), data=data_entry.get(), hora=hora_entry.get(), parent=nova_tarefa))
+    btn_salvar = ctk.CTkButton(frame_btn_nova_tarefa, text="Salvar", fg_color="#005300", hover_color="#316937", command=lambda: salvar(user, frame_lista, atividade=atividade_entry.get(), data=data_entry.get(), hora=hora_entry.get(), parent=nova_tarefa))
     btn_salvar.pack(side="left", padx=(0, 50))
 
-    btn_voltar = ctk.CTkButton(frame_btn_nova_tarefa, text="Voltar", fg_color="darkgreen", hover_color="#247b2d", command=nova_tarefa.destroy)
+    btn_voltar = ctk.CTkButton(frame_btn_nova_tarefa, text="Voltar", fg_color="#4b4b4b", hover_color="#707070", command=nova_tarefa.destroy)
     btn_voltar.pack(side="right", padx=(50, 0))
 
 def excluir_tarefas():
@@ -121,11 +121,11 @@ def excluir_tarefas():
 def cadastro():
     cadastro_win = ctk.CTkToplevel()
     cadastro_win.title("Cadastro")
-    cadastro_win.geometry("400x250")
+    cadastro_win.geometry("400x270")
     cadastro_win.focus()
     cadastro_win.attributes("-topmost", True)
 
-    titulo_login = ctk.CTkLabel(cadastro_win, text="Cadastro de usuário")
+    titulo_login = ctk.CTkLabel(cadastro_win, text="Cadastro de usuário", font=("Helvetica", 16))
     titulo_login.grid(row=0,column=0,columnspan=2, pady=10)
 
     # Rótulos e entradas
@@ -141,18 +141,32 @@ def cadastro():
     nova_senha_entry = ctk.CTkEntry(cadastro_win, placeholder_text="Crie uma senha", show="*")
     nova_senha_entry.grid(row=2,column=1, padx=15, pady=10)
 
+    confirme_senha_label = ctk.CTkLabel(cadastro_win, text="Confirme senha")
+    confirme_senha_label.grid(row=3,column=0, padx=15, pady=10)
+
+    confirme_senha_entry = ctk.CTkEntry(cadastro_win, placeholder_text="Confirme sua senha", show="*")
+    confirme_senha_entry.grid(row=3,column=1, padx=15, pady=10)
+
     cadastro_win.columnconfigure(0, weight=1)
     cadastro_win.columnconfigure(1, weight=1)
 
     # Botões
-    btn_confirma = ctk.CTkButton(cadastro_win, text="Confirmar", command=lambda:confirmar_cadastro(novo_user_entry.get(), nova_senha_entry.get()))
-    btn_confirma.grid(row=4, column=0, pady=10)
+    btn_confirma = ctk.CTkButton(cadastro_win, text="Confirmar", fg_color="#005300", hover_color="#316937", command=lambda:confirmar_cadastro(novo_user_entry.get(), nova_senha_entry.get(), confirme_senha_entry.get(), parent=cadastro_win))
+    btn_confirma.grid(row=4, column=0, pady=(30,10))
 
-    btn_cadastro = ctk.CTkButton(cadastro_win, text="Cancelar", command=cadastro_win.destroy)
-    btn_cadastro.grid(row=4, column=1, pady=5)
+    btn_cancelar = ctk.CTkButton(cadastro_win, text="Cancelar", fg_color="darkred", hover_color="#7b2424", command=cadastro_win.destroy)
+    btn_cancelar.grid(row=4, column=1, pady=(30,10))
     
     
-def confirmar_cadastro(novo_user, nova_senha, parent=None):
+def confirmar_cadastro(novo_user, nova_senha, confirme_senha,parent=None):
+    try: 
+        if nova_senha == confirme_senha:
+            pass
+        else:
+            raise ValueError("Confirmação de senha deve ser igual a senha")
+    except ValueError as e:
+        messagebox.showerror("Erro", f"Erro: {e}!")
+        return
     try:
         with open("users.json", "r") as f:
             users = json.load(f)
@@ -185,7 +199,7 @@ def login():
     ctk.set_appearance_mode("Dark")
     ctk.set_default_color_theme("blue")
 
-    titulo_login = ctk.CTkLabel(login_win, text="Login")
+    titulo_login = ctk.CTkLabel(login_win, text="Login", font=("Helvetica", 16))
     titulo_login.grid(row=0,column=0,columnspan=2, pady=10)
 
     # Rótulos e entradas
@@ -205,11 +219,11 @@ def login():
     login_win.columnconfigure(1, weight=1)
 
     # Botões
-    btn_confirma = ctk.CTkButton(login_win, text="Confirma", command=lambda:confirmar_login(user_entry, senha_entry, login_win))
-    btn_confirma.grid(row=3, column=0, pady=10)
+    btn_confirmar = ctk.CTkButton(login_win, text="Entrar", fg_color="#005300", hover_color="#316937", command=lambda:confirmar_login(user_entry, senha_entry, login_win))
+    btn_confirmar.grid(row=3, column=0, pady=(50, 10))
 
-    btn_cadastro = ctk.CTkButton(login_win, text="Cadastrar usuário", command=cadastro)
-    btn_cadastro.grid(row=3, column=1, pady=5)
+    btn_cadastro = ctk.CTkButton(login_win, text="Cadastrar usuário", fg_color="#4b4b4b", hover_color="#707070", command=cadastro)
+    btn_cadastro.grid(row=3, column=1, pady=(50, 10))
     
     login_win.mainloop()
 
@@ -272,7 +286,7 @@ frame_lista.columnconfigure(1, weight=1)
 frame_botoes2 = ctk.CTkFrame(main, width=500, fg_color="transparent")
 frame_botoes2.pack(pady=10)
 
-btn_atualizar = ctk.CTkButton(frame_botoes2, text="Atualizar lista", fg_color="darkgreen", hover_color="#247b2d",  command=lambda: atualizar_lista(user, frame_lista))
+btn_atualizar = ctk.CTkButton(frame_botoes2, text="Atualizar lista", fg_color="#005300", hover_color="#316937",  command=lambda: atualizar_lista(user, frame_lista))
 btn_atualizar.pack(side="left", padx=(30, 40))
 
 btn_atualizar = ctk.CTkButton(frame_botoes2, text="Sair",  fg_color="darkred", hover_color="#7b2424",  command=main.destroy)

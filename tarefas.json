@@ -22,5 +22,13 @@
         "data": "22/12/2025",
         "hora": "22:22",
         "concluida": true
+    },
+    {
+        "id": "6bab1856-eda6-4474-b639-0b61855161cd",
+        "usuario": "Luan",
+        "atividade": "Feliz natal",
+        "data": "25/12/2025",
+        "hora": "00:00",
+        "concluida": false
     }
 ]
