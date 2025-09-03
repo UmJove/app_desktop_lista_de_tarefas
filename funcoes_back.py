@@ -1,6 +1,6 @@
 import json
 import uuid
-from datetime import datetime
+from datetime import datetime, time
 from tkinter import messagebox
 import customtkinter as ctk
 
@@ -97,7 +97,7 @@ def atualizar_lista(user, frame_lista):
         for widget in frame_lista.winfo_children():
             widget.destroy()
             
-            
+        # Cabeçalho da lista
         titulo_lista = ctk.CTkLabel(frame_lista, text="Tarefas", font=("Helvetica", 14))
         titulo_lista.grid(row=0, column=0, columnspan=4, pady=5)
 
@@ -113,18 +113,34 @@ def atualizar_lista(user, frame_lista):
         label_hora_topo = ctk.CTkLabel(frame_lista, text="Horário")
         label_hora_topo.grid(row=1, column=3, padx=(15))
 
-  
+        # Ordenar tarefas
         try:
             with open("tarefas.json", "r") as f:
-                tarefas = json.load(f)
+                todas_tarefas = json.load(f)
 
-            tarefas = [t for t in tarefas if t["usuario"] == user]
+            tarefas_usuario = [t for t in todas_tarefas if t["usuario"] == user] # Filtrar tarefas do usuário
 
-        except (FileNotFoundError, json.JSONDecodeError):
-            tarefas = []
+            # Converter datas para formato de objeto datetime
+            def converter_data(data_str):
+                try:
+                    return datetime.strptime(data_str, "%d/%m/%Y")
+                except ValueError:
+                    return datetime.min # data mínima
+            
+            # Converter horas para formato de objeto time    
+            def converter_hora(hora_str):
+                try:
+                    return datetime.strptime(hora_str, "%H:%M").time()
+                except ValueError:
+                    return time(0, 0) # 00:00
+            
+            # Odenar tarefas por data e hora
+            tarefas_ordenadas = sorted(tarefas_usuario, key=lambda x: (converter_data(x["data"]), converter_hora(x["hora"])))    
         
-
-        for i, tarefa in enumerate(tarefas, start=2):
+        except (FileNotFoundError, json.JSONDecodeError):
+            tarefas_ordenadas = []
+        
+        for i, tarefa in enumerate(tarefas_ordenadas, start=2):
             check_var = ctk.BooleanVar(value=tarefa.get("concluida", False)) 
             checkbox = ctk.CTkCheckBox(
                 frame_lista, 

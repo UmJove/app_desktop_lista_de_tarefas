@@ -117,7 +117,7 @@ def excluir_tarefas():
     btn_excluir = ctk.CTkButton(excluir_tarefas_win, text="Excluir selecionadas", command=confirmar_exclusao)
     btn_excluir.pack(pady=20)
 
-
+# Janela de cadastro
 def cadastro():
     cadastro_win = ctk.CTkToplevel()
     cadastro_win.title("Cadastro")

@@ -1,13 +1,5 @@
 [
     {
-        "id": "34df3816-35f7-4795-a9a3-bfb3c3b79b67",
-        "usuario": "Luan",
-        "atividade": "Tarefa 3",
-        "data": "12/12/2025",
-        "hora": "11:11",
-        "concluida": true
-    },
-    {
         "id": "b8524f28-ff51-4afd-9789-8cffac3b957c",
         "usuario": "thiago",
         "atividade": "Tarefa 4",
@@ -29,6 +21,54 @@
         "atividade": "Feliz natal",
         "data": "25/12/2025",
         "hora": "00:00",
+        "concluida": false
+    },
+    {
+        "id": "a97d6886-a7ad-46db-8fe4-0f3cc14f71d1",
+        "usuario": "Luan",
+        "atividade": "Feliz Ano Novo!",
+        "data": "01/01/2026",
+        "hora": "00:01",
+        "concluida": false
+    },
+    {
+        "id": "73661f05-0a9a-445b-9f16-9a20d3595a0f",
+        "usuario": "Luan",
+        "atividade": "Feliz Haloween!",
+        "data": "31/10/2025",
+        "hora": "22:00",
+        "concluida": false
+    },
+    {
+        "id": "404efe17-486a-4f4c-a47f-ac74109b1005",
+        "usuario": "Luan",
+        "atividade": "Doces ou travessuras?!",
+        "data": "31/10/2025",
+        "hora": "20:00",
+        "concluida": false
+    },
+    {
+        "id": "a1f2a50d-1d1f-4e20-9e4c-69df457bea14",
+        "usuario": "Luan",
+        "atividade": "Comprar doces",
+        "data": "31/10/2025",
+        "hora": "8:00",
+        "concluida": false
+    },
+    {
+        "id": "c4e8d314-e607-453e-8647-a882113fea0b",
+        "usuario": "Luan",
+        "atividade": "Varrer sala",
+        "data": "31/10/2025",
+        "hora": "07:00",
+        "concluida": false
+    },
+    {
+        "id": "8eeb8096-393d-46ca-94d0-5aaf4b6c7da9",
+        "usuario": "Luan",
+        "atividade": "Ligar para convidados",
+        "data": "31/10/2025",
+        "hora": "08:30",
         "concluida": false
     }
 ]
